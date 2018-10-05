@@ -1,0 +1,62 @@
+{
+  "name": "oe-component-passport",
+  "version": "0.0.1",
+  "description": "oe-cloud modularization project",
+  "engines": {
+    "node": ">=6"
+  },
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm install --no-optional",
+    "test": "mocha --no-timeouts test/*.spec.js",
+    "lint": "eslint .",
+    "fix-lint": "eslint --fix .",
+    "grunt-cover": "grunt test-with-coverage"
+  },
+  "dependencies": {
+    "async": "^2.5.0",
+    "body-parser": "^1.9.0",
+    "compression": "^1.7.0",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "1.4.0",
+    "jsonwebtoken": "^8.0.1",
+    "loopback-component-passport": "^3.10.0",
+    "oe-cloud": "git+http://evgit/oec-next/oe-cloud.git#master",
+    "oe-jwt-utils": "git+http://evgit/oec-next/oe-jwt-utils.git#master",
+    "oe-logger": "^1.0.0",
+    "passport": "^0.4.0",
+    "passport-facebook": "^1.0.3",
+    "passport-google-oauth": "^0.1.5",
+    "passport-ldapauth": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-oauth2": "^1.1.2",
+    "passport-twitter": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "chai": "^3.4.1",
+    "chai-datetime": "^1.4.0",
+    "chai-things": "^0.2.0",
+    "chalk": "^1.1.1",
+    "eslint": "^4.10.0",
+    "grunt": "^0.4.5",
+    "grunt-banner": "^0.6.0",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-jsbeautifier": "^0.2.12",
+    "grunt-mkdir": "^1.0.0",
+    "grunt-mocha-istanbul": "^5.0.2",
+    "grunt-mocha-test": "^0.13.2",
+    "istanbul": "0.4.1",
+    "mocha": "^3.4.2",
+    "superagent-defaults": "^0.1.14",
+    "supertest": "^1.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@evgit:oec-next/oe-component-passport.git"
+  },
+  "license": "MIT"
+}
