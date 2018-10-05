@@ -42,6 +42,6 @@ module.exports = function (app) {
     // these functions must be called after boot as models will not be available.
     passport.configurePassport(app, providerJson);
   } catch (e) {
-    console.log(e);
+    log.error(e);
   }
 };
