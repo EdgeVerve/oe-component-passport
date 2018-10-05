@@ -3,20 +3,20 @@ const jwt = require('jsonwebtoken');
 const secretKey = process.env.JWT_SECRET_KEY || null;
 
 module.exports = function (app) {
-    const User = app.models.User;
-    const AccessToken = app.models.AccessToken;
+  const User = app.models.User;
+  const AccessToken = app.models.AccessToken;
 
-    var resolve = AccessToken.resolve;
-    var tokens = {};
+  var resolve = AccessToken.resolve;
+  var tokens = {};
 
-    if (secretKey && secretKey !== '') {
-        if ((process.env.JWT_FOR_ACCESS_TOKEN === 'true' || process.env.JWT_FOR_ACCESS_TOKEN === true)) {
-        User.prototype.createAccessToken = function (ttl, options, cb) {
-            const userSettings = this.constructor.settings;
-            const expiresIn = Math.min(ttl || userSettings.ttl, userSettings.maxTTL);
-            const accessToken = jwt.sign({id: this.id}, secretKey, {expiresIn});
-            return cb ? cb(null, Object.assign(this, {accessToken})) : {id: accessToken};
-        };
+  if (secretKey && secretKey !== '') {
+    if ((process.env.JWT_FOR_ACCESS_TOKEN === 'true' || process.env.JWT_FOR_ACCESS_TOKEN === true)) {
+      User.prototype.createAccessToken = function (ttl, options, cb) {
+        const userSettings = this.constructor.settings;
+        const expiresIn = Math.min(ttl || userSettings.ttl, userSettings.maxTTL);
+        const accessToken = jwt.sign({id: this.id}, secretKey, {expiresIn});
+        return cb ? cb(null, Object.assign(this, {accessToken})) : {id: accessToken};
+      };
       // TO DO: black list jwt on logout
       //   User.logout = function(tokenId, fn) {
       //     fn();
@@ -28,10 +28,9 @@ module.exports = function (app) {
         // is id JWT?
         if (id.split('.').length > 2) {
           try {
-            var userId;
             const data = jwt.verify(id, secretKey);
-            if(data && tokens[id]){
-                return cb(null,{userId: tokens[id]});
+            if (data && tokens[id]) {
+              return cb(null, {userId: tokens[id]});
             }
             var query = data.email ? { email: data.email } : { username: data.username || data.user_name };
             User.findOne({where: query}, function (err, user) {
