@@ -12,6 +12,10 @@ module.exports = function (app, cb) {
   // add afterRemote for login/logout to add/clear cookie
   if (process.env.ENABLE_COOKIE && (process.env.ENABLE_COOKIE === true || process.env.ENABLE_COOKIE === 'true')) {
     var user = app.models.User;
+    var passportConfig = app.get('passportConfig');
+    if (passportConfig && passportConfig.userModel) {
+      user = app.models[passportConfig.userModel];
+    }
     user.afterRemote('login', function (ctx, modelInstance, next) {
       let res = ctx.res;
       let req = ctx.req;
