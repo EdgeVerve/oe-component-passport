@@ -13,6 +13,7 @@ This project implements validation functionality on Models.
 
 1. Local and 3rd party authentication support (like Facebook, google oauth authentication)
 2. JWT authentication support
+3. Configurable "Cookie" generation with users/login api (set ENABLE_COOKIE=true)
 
 ### Difference from previous version of oe-cloud
 
