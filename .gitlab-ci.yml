@@ -1,7 +1,6 @@
 stages:
   - pre-build
   - pre-build-test
-  - build
   - cleanup
 
 image: $REGISTRY/debian-node-oracle-docker
@@ -21,6 +20,7 @@ npminstall:
     - status_eslint=0
     - exit_status=0
     - npm set progress=false
+    - npm config set registry http://10.188.25.62:9002/
     - time npm install eslint babel-eslint --no-optional
     - if npm run lint; then status_eslint=0; else status_eslint=1; fi
     - if [ $status_eslint == 1 ]; then exit_status=1 && echo "esLint errors exist"; fi
@@ -28,13 +28,20 @@ npminstall:
     - echo "Code style check done successfully"
     - time npm install --no-optional
     - echo "Node Modules Installed"
+    - npm config delete registry
+    - npm audit --json >vulnerabilities.json
+    - status_vulnerabilities=`echo $?`
+    - npm audit
+    - if [ $status_vulnerabilities == 1 ]; then exit_status=1 && echo "Dependency vulnerabilities exist"; fi
+    - if [ $exit_status == 1 ]; then exit $exit_status; fi
+
   artifacts:
     untracked: true
     expire_in: 2h
     paths:
       - node_modules/
   tags:
-    - CEP_RUNNER
+    - CEP_RUNNER_EE
 
 
 mongotest:
@@ -45,6 +52,7 @@ mongotest:
     - export MONGO_HOST="10.73.53.144"
     - export DB=mongo
     - export DB_NAME=${CI_PIPELINE_ID}_mongo
+    - npm config set registry http://10.188.25.62:9002/
     - time npm install --no-optional
     - npm run grunt-cover
   artifacts:
@@ -54,7 +62,7 @@ mongotest:
       - coverage/
     when: on_failure
   tags:
-    - CEP_RUNNER
+    - CEP_RUNNER_EE
 
 postgrestest:
   stage: pre-build-test
@@ -65,15 +73,14 @@ postgrestest:
     - export DB=postgres
     - export POSTGRES_HOST="10.73.53.144"
     - export DB_NAME=${CI_PIPELINE_ID}_pg
-    - time npm install git+http://evgit/atul/loopback-connector-postgresql.git --save
+    - npm config set registry http://10.188.25.62:9002/
     - time npm install --no-optional
     - npm run grunt-cover
   tags:
-    - CEP_RUNNER    
-  tags:
-    - CEP_RUNNER
+    - CEP_RUNNER_EE
     
 oracletest:
+  image: $REGISTRY/debian-node-oracle-docker
   stage: pre-build-test
   script:
     - echo 'Performing Oracle Test'
@@ -85,6 +92,7 @@ oracletest:
     - export ORACLE_SID=ORCLCDB
     - export ENABLE_DS_AUTOUPDATE=true
     - export DB_NAME=${CI_PIPELINE_ID}_pg
+    - npm config set registry http://10.188.25.62:9002/
     - time npm install git+http://evgit/oecloud.io/oe-connector-oracle.git --no-optional
     - time npm install --no-optional
     - mv /oracledb node_modules/
@@ -96,19 +104,12 @@ oracletest:
     - echo "Oracle user details:"${ORACLE_USERNAME}"/"${ORACLE_PASSWORD}
     - npm run grunt-cover
   tags:
-    - CEP_RUNNER    
-
-buildjob:
-  stage: build
-  script: 
-    - echo "Building Image"
-  tags:
-    - CEP_RUNNER
+    - CEP_RUNNER_EE
 
 lastcleanup:
   stage: cleanup
   script:
     - echo "Finishing CI CD"
   tags:
-    - CEP_RUNNER
+    - CEP_RUNNER_EE
 
