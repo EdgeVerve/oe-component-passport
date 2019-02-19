@@ -18,7 +18,7 @@
     "cookie-parser": "1.4.3",
     "jsonwebtoken": "8.4.0",
     "loopback-component-passport": "3.10.0",
-    "oe-jwt-utils": "git+http://evgit/oecloud.io/oe-jwt-utils.git#master",
+    "oe-jwt-utils": "git+http://evgit/oecloud.io/oe-jwt-utils.git#2.0.0",
     "passport": "0.4.0",
     "passport-facebook": "3.0.0",
     "passport-google-oauth": "1.0.0",
@@ -48,7 +48,7 @@
     "mocha": "5.2.0",
     "superagent-defaults": "0.1.14",
     "supertest": "3.4.2",
-    "oe-cloud": "git+http://evgit/oecloud.io/oe-cloud.git#master"
+    "oe-cloud": "git+http://evgit/oecloud.io/oe-cloud.git#2.0.0"
   },
   "author": "Dipayan Aich <dipayan_aich@infosys.com>",
   "repository": {
