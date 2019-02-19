@@ -1,6 +1,6 @@
 {
   "name": "oe-component-passport",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "description": "oe-cloud modularization project",
   "engines": {
     "node": ">=6"
@@ -18,7 +18,7 @@
     "cookie-parser": "1.4.0",
     "jsonwebtoken": "8.0.1",
     "loopback-component-passport": "3.10.0",
-    "oe-jwt-utils": "git+http://evgit/oec-next/oe-jwt-utils.git#master",
+    "oe-jwt-utils": "git+http://evgit/oecloud.io/oe-jwt-utils.git#master",
     "passport": "0.4.0",
     "passport-facebook": "3.0.0",
     "passport-google-oauth": "1.0.0",
@@ -48,12 +48,12 @@
     "mocha": "5.2.0",
     "superagent-defaults": "0.1.14",
     "supertest": "3.4.2",
-    "oe-cloud": "git+http://evgit/oec-next/oe-cloud.git#master"
+    "oe-cloud": "git+http://evgit/oecloud.io/oe-cloud.git#master"
   },
   "author": "Dipayan Aich <dipayan_aich@infosys.com>",
   "repository": {
     "type": "git",
-    "url": "git@evgit:oec-next/oe-component-passport.git"
+    "url": "https://github.com/EdgeVerve/oe-component-passport.git"
   },
   "license": "MIT"
 }
