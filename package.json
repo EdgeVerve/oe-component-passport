@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "body-parser": "1.9.0",
-    "cookie-parser": "1.4.0",
-    "jsonwebtoken": "8.0.1",
+    "cookie-parser": "1.4.3",
+    "jsonwebtoken": "8.4.0",
     "loopback-component-passport": "3.10.0",
     "oe-jwt-utils": "git+http://evgit/oecloud.io/oe-jwt-utils.git#master",
     "passport": "0.4.0",
