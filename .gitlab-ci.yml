@@ -1,7 +1,6 @@
 stages:
   - pre-build
   - pre-build-test
-  - cleanup
 
 image: $REGISTRY/debian-node-oracle-docker
 variables:
@@ -30,7 +29,7 @@ npminstall:
     - echo "Node Modules Installed"
     - npm config delete registry
     - npm audit --json >vulnerabilities.json
-    - status_vulnerabilities=`echo $?`
+    - status_vulnerabilities='echo $?'
     - npm audit
     - if [ $status_vulnerabilities == 1 ]; then exit_status=1 && echo "Dependency vulnerabilities exist"; fi
     - if [ $exit_status == 1 ]; then exit $exit_status; fi
@@ -41,7 +40,7 @@ npminstall:
     paths:
       - node_modules/
   tags:
-    - CEP_RUNNER_EE
+    - CEP_RUNNER
 
 
 mongotest:
@@ -62,7 +61,7 @@ mongotest:
       - coverage/
     when: on_failure
   tags:
-    - CEP_RUNNER_EE
+    - CEP_RUNNER
 
 postgrestest:
   stage: pre-build-test
@@ -77,8 +76,8 @@ postgrestest:
     - time npm install --no-optional
     - npm run grunt-cover
   tags:
-    - CEP_RUNNER_EE
-    
+    - CEP_RUNNER
+
 oracletest:
   image: $REGISTRY/debian-node-oracle-docker
   stage: pre-build-test
@@ -104,12 +103,4 @@ oracletest:
     - echo "Oracle user details:"${ORACLE_USERNAME}"/"${ORACLE_PASSWORD}
     - npm run grunt-cover
   tags:
-    - CEP_RUNNER_EE
-
-lastcleanup:
-  stage: cleanup
-  script:
-    - echo "Finishing CI CD"
-  tags:
-    - CEP_RUNNER_EE
-
+    - CEP_RUNNER
