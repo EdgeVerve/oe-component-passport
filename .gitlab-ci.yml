@@ -41,7 +41,7 @@ npminstall:
     paths:
       - node_modules/
   tags:
-    - CEP_RUNNER_EE
+    - CEP_RUNNER
 
 
 mongotest:
@@ -62,7 +62,7 @@ mongotest:
       - coverage/
     when: on_failure
   tags:
-    - CEP_RUNNER_EE
+    - CEP_RUNNER
 
 postgrestest:
   stage: pre-build-test
