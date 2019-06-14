@@ -5,10 +5,14 @@
     "usernameField": "${userfieldname}",
     "passwordField": "${PASSWORD_FIELD_NAME}",
     "authPath": "/auth/local",
-    "successRedirect": "/explorer",
-    "failureRedirect": "/",
+    "successRedirect": "/info",
+    "failureRedirect": "/failed",
     "failureFlash": false,
     "callbackHTTPMethod": "post",
-    "setAccessToken": true
+    "setAccessToken": true,
+    "session": false,
+  "forceDefaultCallback": true,
+  "cookie": true,
+  "json": true
   }
 }

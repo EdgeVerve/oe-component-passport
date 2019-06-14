@@ -7,13 +7,17 @@
       "../common/mixins"
     ]
   },
+  "User": {
+    "dataSource": "db",
+    "public": true
+  },
   "UserCredential": {
     "dataSource": "db",
-    "public": false
+    "public": true
   },
   "UserIdentity": {
     "dataSource": "db",
-    "public": false
+    "public": true
   }
 
 }
