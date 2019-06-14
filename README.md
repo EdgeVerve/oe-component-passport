@@ -1,6 +1,6 @@
-# oe-validation
+# oe-component-passport
 
-This project implements validation functionality on Models.
+This project implements multiple authentication capability provided by passportjs.
 
 ## Pre-requisites
 
@@ -13,7 +13,9 @@ This project implements validation functionality on Models.
 
 1. Local and 3rd party authentication support (like Facebook, google oauth authentication)
 2. JWT authentication support
-3. Configurable "Cookie" generation with users/login api (set ENABLE_COOKIE=true)
+3. JWT as access_token
+4. Configurable "Cookie" generation with users/login api (set ENABLE_COOKIE=true)
+5. Parameterized providers.json
 
 ### Difference from previous version of oe-cloud
 
@@ -37,7 +39,30 @@ Usage of this module needs an entry in package.json and also an entry to applica
 
 Inside your application, authentication can be done using "/User/login" or "/auth/local" which returns access_token as payload and in cookie if configured.
 
-Examples are coming up in oe-demo-app project.
+### Parameterized providers.json
+
+You can write providers json like this where you can parameterise a value like *${variable_name}*
+
+``` javascript
+{
+  "local": {
+    "provider": "local",
+    "module": "passport-local",
+    "usernameField": "${userfieldname}",
+    "passwordField": "${PASSWORD_FIELD_NAME}",
+    "authPath": "/auth/local",
+    "successRedirect": "/explorer",
+    "failureRedirect": "/login",
+    "failureFlash": false,
+    "callbackHTTPMethod": "post",
+    "setAccessToken": true
+  }
+}
+
+```
+In above example, usernameField value would be set to value of environment (or configuration) variable '**userfieldname**' and passwordField value would be from environment (or configuration) variable '**PASSWORD_FIELD_NAME**'. If those environmental variables are not set or not in configuration, '' (blank string) would be assigned.
+
+
 
 
 
