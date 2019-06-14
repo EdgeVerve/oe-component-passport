@@ -62,6 +62,21 @@ You can write providers json like this where you can parameterise a value like *
 ```
 In above example, usernameField value would be set to value of environment (or configuration) variable '**userfieldname**' and passwordField value would be from environment (or configuration) variable '**PASSWORD_FIELD_NAME**'. If those environmental variables are not set or not in configuration, '' (blank string) would be assigned.
 
+### JWT_FOR_ACCESS_TOKEN
+To improve performance JWT can be used as access token. to enable that, set following environmental variable
+``` javascript
+JWT_SECRET_KEY = 'secret'
+JWT_FOR_ACCESS_TOKEN = true;
+```
+*JWT_SECRET_KEY* could be any secret consisting alphanumeric value.
+
+
+Please note that this implementation of JWT just replaces generic access-token with JWT and saves checking user id from database for api every request that needs authentication (ACL). 
+
+To implement custom JWT payload to have user roles(to use in ACL varification) and other details; override User.login function along with User.prototype.createAccessToken and AccessToken.resolve
+
+For any other login related customization, like password complexity, password history etc; please extend User model and add customized code in extended model (some example available in oe-demo-app)
+
 
 
 
