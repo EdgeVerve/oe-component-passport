@@ -56,7 +56,7 @@ module.exports = function GruntConfig(grunt) {
         mochaOptions: ['--exit']
       },
       coverage: {
-        src: 'test/*.spec.js',
+        src: 'test/test.js',
         options: {
           timeout: 60000,
           check: {
