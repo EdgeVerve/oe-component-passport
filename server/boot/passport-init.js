@@ -42,6 +42,9 @@ module.exports = function (app) {
     // these functions must be called after boot as models will not be available.
     passport.configurePassport(app, providerJson);
   } catch (e) {
-    log.error(e);
+    log.info({}, 'Please check User, UserIdentiry and UserCredential models are configured in your application\'s model-config.json');
+    log.error({}, e);
+    // eslint-disable-next-line no-process-exit
+    process.exit(1);
   }
 };
