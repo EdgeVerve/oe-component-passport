@@ -7,6 +7,7 @@ This project implements multiple authentication capability provided by passportj
 * oe-cloud 
 * oe-logger
 * loopback-component-passport
+* Configure model-config.json of application with UserIdentity and UserCredential with proper datasource as per application's datasource configuration 
 
 
 ## Features
@@ -38,6 +39,21 @@ Usage of this module needs an entry in package.json and also an entry to applica
 ```
 
 Inside your application, authentication can be done using "/User/login" or "/auth/local" which returns access_token as payload and in cookie if configured.
+### Configure model-config.json
+
+Add UserIdentity and UserCredential models in your application's model-config.json (in your application's server directory) with correct dataSource name. 
+Also set public true or false depending on your requirement to expose those as REST API or not.
+
+```
+"UserCredential": {
+    "dataSource": "db",
+    "public": false
+  },
+  "UserIdentity": {
+    "dataSource": "db",
+    "public": false
+  }
+```
 
 ### Parameterized providers.json
 
