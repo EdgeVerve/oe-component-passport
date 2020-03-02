@@ -1,6 +1,6 @@
 {
   "name": "oe-component-passport",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "oe-cloud module to initialize passport component supporting regular strategies and JWT as access token",
   "engines": {
     "node": ">=6"
