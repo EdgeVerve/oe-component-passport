@@ -6,7 +6,7 @@ var log = logger('test-bootstrapper');
 // oecloud.attachMixinsToBaseEntity("SkeletonMixin");
 process.env.userfieldname = 'username';
 process.env.PASSWORD_FIELD_NAME = 'password';
-process.env.SECRET_OK_KEY = 'secret'
+process.env.SECRET_OR_KEY = 'secret'
 process.env.JWT_FOR_ACCESS_TOKEN = true;
 
 oecloud.observe('loaded', function (ctx, next) {
