@@ -17,7 +17,6 @@ var supertest = require('supertest');
 var api = defaults(supertest(app));
 var accessToken = '';
 
-<<<<<<< HEAD
 describe(chalk.blue('oe-component-passport: Local Authentication Tests'), function () {
     this.timeout(600000);
       before('wait for boot', function(done){
@@ -28,18 +27,6 @@ describe(chalk.blue('oe-component-passport: Local Authentication Tests'), functi
           })
           .catch(done)
       });
-=======
-describe(chalk.blue('model-validation PropertyLevel Validation test'), function () {
-  this.timeout(600000);
-  before('wait for boot', function (done) {
-    bootstrap.then(() => {
-      // debugger
-      // create user
-      done();
-    })
-      .catch(done);
-  });
->>>>>>> a2010d7933ae999e4278e523e42ae71a42d82c99
 
   before('create user', function (done) {
     var userData = {
