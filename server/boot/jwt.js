@@ -1,6 +1,15 @@
+/**
+ *
+ * �2018-2019 EdgeVerve Systems Limited (a fully owned Infosys subsidiary),
+ * Bangalore, India. All Rights Reserved.
+ *
+ */
+
+// Author : Dipayan
+
 'use strict';
 const jwt = require('jsonwebtoken');
-const secretKey = process.env.JWT_SECRET_KEY || null;
+const secretKey = process.env.SECRET_OR_KEY || 'secret';
 
 module.exports = function (app) {
   const User = app.models.User;

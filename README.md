@@ -78,13 +78,22 @@ You can write providers json like this where you can parameterise a value like *
 ```
 In above example, usernameField value would be set to value of environment (or configuration) variable '**userfieldname**' and passwordField value would be from environment (or configuration) variable '**PASSWORD_FIELD_NAME**'. If those environmental variables are not set or not in configuration, '' (blank string) would be assigned.
 
+### Finacle SSO JWT
+To use the application with finacle SSO JWT, check *"/test"* folder **provider.js** example for custom callback
+To make JWT to work wihtout login in to your application (JWT generated from Finacle SSO from another app and only JWT to be used) you need to enable and set following environment variable
+**SECRET_OR_KEY** or **PUBLIC_KEY** should be fininfra's public certificate read as string (the public key certificate can be obtained from fininfra administrator)
+**ENABLE_FINACLE_SSO_JWT** set to true
+This will enable middleware and other required function to be initialized
+Finacle SSO's JWT is expected to be directly passed in Authorization header for any API call - only to those which comes under ``` restApiRoot ``` path configured in config.js(or config.json).
+
+
 ### JWT_FOR_ACCESS_TOKEN
 To improve performance JWT can be used as access token. to enable that, set following environmental variable
 ``` javascript
-JWT_SECRET_KEY = 'secret'
+SECRET_OR_KEY = 'secret'
 JWT_FOR_ACCESS_TOKEN = true;
 ```
-*JWT_SECRET_KEY* could be any secret consisting alphanumeric value.
+*SECRET_OR_KEY* could be any secret consisting alphanumeric value.
 
 
 Please note that this implementation of JWT just replaces generic access-token with JWT and saves checking user id from database for api every request that needs authentication (ACL). 
