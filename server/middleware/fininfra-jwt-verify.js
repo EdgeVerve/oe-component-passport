@@ -21,7 +21,7 @@ module.exports = function parseJwt() {
     if (req.query.access_token) {
       req.query.access_token = null;
     }
-    let id = req.headers.authorization;
+    let id = req.headers.Authorization || req.headers.authorization;
     if (id && id.split('.').length === 3) {
       logger.debug('Inside parse-jwt file');
       var secretOrPublicKey = process.env.PUBLIC_KEY || process.env.SECRET_OR_KEY;
