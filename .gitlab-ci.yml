@@ -31,15 +31,8 @@ npminstall:
   stage: pre-build
   script:
     - echo "Performing code style check..."
-<<<<<<< HEAD
-    - status_eslint=0
-    - exit_status=0
-    - npm set progress=false
-    - npm config set registry $NPM_REGISTRY
-=======
     - export status_eslint=0
     - export exit_status=0
->>>>>>> a2010d7933ae999e4278e523e42ae71a42d82c99
     - time npm install eslint babel-eslint --no-optional
     - if npm run lint; then status_eslint=0; else status_eslint=1; fi
     - if [ $status_eslint == 1 ]; then export exit_status=1 && echo "esLint errors exist"; fi
@@ -71,14 +64,6 @@ mongotest:
     DB_NAME: ${CI_JOB_ID}_mongo
   script:
     - echo 'Performing MongoDB Test'
-<<<<<<< HEAD
-    - export NODE_ENV=mongo
-    - export MONGO_HOST="10.73.53.144"
-    - export DB=mongo
-    - export DB_NAME=${CI_PIPELINE_ID}_mongo
-    - npm config set registry $NPM_REGISTRY
-=======
->>>>>>> a2010d7933ae999e4278e523e42ae71a42d82c99
     - time npm install --no-optional
     - npm run grunt-cover
   artifacts:
@@ -100,15 +85,6 @@ postgrestest:
     ENABLE_DS_AUTOUPDATE: 'true'
   script:
     - echo 'Performing PostgreSQL Test'
-<<<<<<< HEAD
-    - export ENABLE_DS_AUTOUPDATE=true 
-    - export NODE_ENV=postgres
-    - export DB=postgres
-    - export POSTGRES_HOST="10.73.53.144"
-    - export DB_NAME=${CI_PIPELINE_ID}_pg
-    - npm config set registry $NPM_REGISTRY
-=======
->>>>>>> a2010d7933ae999e4278e523e42ae71a42d82c99
     - time npm install --no-optional
     - npm run grunt-cover
   tags:
@@ -129,21 +105,8 @@ oracletest:
     ENABLE_DS_AUTOUPDATE: 'true'
   script:
     - echo 'Performing Oracle Test'
-<<<<<<< HEAD
-    - export APP_TAG=oracle
-    - export NODE_ENV=oracle
-    - export ORACLE_HOST=10.73.53.144
-    - export ORACLE_SYSUSER=oeadmin
-    - export ORACLE_SYSPASSWORD=oeadmin
-    - export ORACLE_SID=ORCLCDB
-    - export ENABLE_DS_AUTOUPDATE=true
-    - export DB_NAME=${CI_PIPELINE_ID}_pg
-    - npm config set registry $NPM_REGISTRY
-    - time npm install git+http://evgit/oecloud.io/oe-connector-oracle.git --no-optional
-=======
     # - export DB_NAME=${CI_JOB_ID}_pg
     # - time npm install git+http://evgit/oecloud.io/oe-connector-oracle.git#master --no-optional
->>>>>>> a2010d7933ae999e4278e523e42ae71a42d82c99
     - time npm install --no-optional
     # - mv /oracledb node_modules/
     - node test/oracle-utility.js
