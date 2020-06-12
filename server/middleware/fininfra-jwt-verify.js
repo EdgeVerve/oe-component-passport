@@ -10,7 +10,6 @@
 
 let logger = require('oe-logger')('fininfra-jwt-verify');
 let jwt = require('jsonwebtoken');
-let util = require('../../lib/util');
 const verifyFinacleJWT = (process.env.ENABLE_FINACLE_SSO_JWT && (process.env.ENABLE_FINACLE_SSO_JWT === true || process.env.ENABLE_FINACLE_SSO_JWT === 'true')) ? true : false;
 module.exports = function parseJwt() {
   return function (req, res, next) {
@@ -25,7 +24,6 @@ module.exports = function parseJwt() {
     if (id && id.split('.').length === 3) {
       logger.debug('Inside parse-jwt file');
       var secretOrPublicKey = process.env.PUBLIC_KEY || process.env.SECRET_OR_KEY;
-      secretOrPublicKey = util.sanitizePublicKey(secretOrPublicKey);
       try {
         data = jwt.verify(id, secretOrPublicKey);
         let userinfo = JSON.parse(data.USER_ACCESS_INFO)[0];
