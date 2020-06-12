@@ -12,25 +12,22 @@ const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_OR_KEY || 'secret';
 
 module.exports = function (app) {
-  const User = app.models.User;
-  const AccessToken = app.models.AccessToken;
+  if (process.env.JWT_FOR_ACCESS_TOKEN === 'true' || process.env.JWT_FOR_ACCESS_TOKEN === true) {
+    const User = app.models.User;
+    const AccessToken = app.models.AccessToken;
+    var resolve = AccessToken.resolve;
+    var tokens = {};
 
-  var resolve = AccessToken.resolve;
-  var tokens = {};
-
-  if (secretKey && secretKey !== '') {
-    if ((process.env.JWT_FOR_ACCESS_TOKEN === 'true' || process.env.JWT_FOR_ACCESS_TOKEN === true)) {
-      User.prototype.createAccessToken = function (ttl, options, cb) {
-        const userSettings = this.constructor.settings;
-        const expiresIn = Math.min(ttl || userSettings.ttl, userSettings.maxTTL);
-        const accessToken = jwt.sign({id: this.id}, secretKey, {expiresIn});
-        return cb ? cb(null, Object.assign(this, {accessToken})) : {id: accessToken};
-      };
-      // TO DO: black list jwt on logout
-      //   User.logout = function(tokenId, fn) {
-      //     fn();
-      //   };
-    }
+    User.prototype.createAccessToken = function (ttl, options, cb) {
+      const userSettings = this.constructor.settings;
+      const expiresIn = Math.min(ttl || userSettings.ttl, userSettings.maxTTL);
+      const accessToken = jwt.sign({ id: this.id }, secretKey, { expiresIn });
+      return cb ? cb(null, Object.assign(this, { accessToken })) : { id: accessToken };
+    };
+    // TO DO: black list jwt on logout
+    //   User.logout = function(tokenId, fn) {
+    //     fn();
+    //   };
 
     AccessToken.resolve = function (id, cb) {
       if (id) {
@@ -39,16 +36,16 @@ module.exports = function (app) {
           try {
             const data = jwt.verify(id, secretKey);
             if (data && tokens[id]) {
-              return cb(null, {userId: tokens[id]});
+              return cb(null, { userId: tokens[id] });
             }
             var query = data.email ? { email: data.email } : { username: data.username || data.user_name };
-            User.findOne({where: query}, function (err, user) {
+            User.findOne({ where: query }, function (err, user) {
               if (err) {
                 cb(err, 'Invalid Token');
               }
               if (user) {
                 tokens[id] = user.id;
-                cb(null, {userId: user.id});
+                cb(null, { userId: user.id });
               } else {
                 // no user found
                 // ?? TO DO: create a user and login ??
@@ -70,3 +67,4 @@ module.exports = function (app) {
     };
   }
 };
+

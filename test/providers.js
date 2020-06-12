@@ -106,7 +106,7 @@ var customCallback = function fnCustomCallback(req, res, next){
             if (!!options.finaclelogin.json) {
               return res.json({
                 'access_token': info.accessToken.id,
-                'auth_token': info.identity.profile && info.identity.credentials.accessToken || '',
+                'auth_token': info.identity.credentials && info.identity.credentials.accessToken || '',
                 userId: user.id
               });
             } else {
