@@ -79,10 +79,14 @@ You can write providers json like this where you can parameterise a value like *
 In above example, usernameField value would be set to value of environment (or configuration) variable '**userfieldname**' and passwordField value would be from environment (or configuration) variable '**PASSWORD_FIELD_NAME**'. If those environmental variables are not set or not in configuration, '' (blank string) would be assigned.
 
 ### Finacle SSO JWT
-To use the application with finacle SSO JWT, check *"/test"* folder **provider.js** example for custom callback
-To make JWT to work wihtout login in to your application (JWT generated from Finacle SSO from another app and only JWT to be used) you need to enable and set following environment variable
-**SECRET_OR_KEY** or **PUBLIC_KEY** should be fininfra's public certificate read as string (the public key certificate can be obtained from fininfra administrator)
+To use the application with finacle SSO JWT, check *"/test"* folder **provider.js** example for custom callback.
+To make Finacle SSO JWT to work wihtout login in to your application (JWT generated from Finacle SSO in another app) you need to enable and set following environment variables
+
+
+**SECRET_OR_KEY** or **PUBLIC_KEY** should be fininfra's public certificate as base64 string (should be properly formated and the public key certificate can be obtained from fininfra administrator)
 **ENABLE_FINACLE_SSO_JWT** set to true
+
+
 This will enable middleware and other required function to be initialized
 Finacle SSO's JWT is expected to be directly passed in Authorization header for any API call - only to those which comes under ``` restApiRoot ``` path configured in config.js(or config.json).
 
@@ -93,7 +97,7 @@ To improve performance JWT can be used as access token. to enable that, set foll
 SECRET_OR_KEY = 'secret'
 JWT_FOR_ACCESS_TOKEN = true;
 ```
-*SECRET_OR_KEY* could be any secret consisting alphanumeric value.
+*SECRET_OR_KEY* could be any secret consisting alphanumeric value. If **JWT_FOR_ACCESS_TOKEN** is set true, and finacle sso also needs to be used, set finacle certificate to **PUBLIC_KEY**
 
 
 Please note that this implementation of JWT just replaces generic access-token with JWT and saves checking user id from database for api every request that needs authentication (ACL). 
@@ -102,6 +106,16 @@ To implement custom JWT payload to have user roles(to use in ACL varification) a
 
 For any other login related customization, like password complexity, password history etc; please extend User model and add customized code in extended model (some example available in oe-demo-app)
 
+The certificate format should be similar to this
+
+``` javascript
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCiUdFD5LPHdPKpSD+HpLzkfN6/
+y0BDAbyo2srzBhQl81oqg+HPI/03jOsWs0cP0uS0eZOmrrlujLfbG+R3WKN5xPvB
+brOBBA7N8axDRRZWoWkEX3KX2vaUfAxfQNp3tUhegliHtrLVPyutnowlY3f7/TzX
+JbEND/PONc0VpaEf4wIDAQAB
+-----END PUBLIC KEY-----
+```
 
 
 
