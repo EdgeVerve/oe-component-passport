@@ -39,6 +39,7 @@ module.exports = function parseJwt() {
           req.accessToken = data;
           req.accessToken.id = id;
           req.accessToken.userId = data.USER_ID;
+          req.accessToken.username = data.USER_ID;
           req.accessToken.roles = userinfo ? [userinfo.roleId] : [];
         }
       } catch (e) {
