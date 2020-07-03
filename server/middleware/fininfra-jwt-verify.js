@@ -30,8 +30,9 @@ module.exports = function parseJwt() {
         logger.debug('requst.accessToken present: ' + req.accessToken ? 'true' : 'false');
         if (req.accessToken) {
           req.accessToken.userAccessInfo = data.USER_ACCESS_INFO;
-          req.accessToken.tokenId = id;
+          req.accessToken.jwtToken = id;
           req.accessToken.tokenUserId = data.USER_ID;
+          req.accessToken.username = req.accessToken.username || data.USER_ID;
           // setting the role in context as acl to work , it need role
           req.accessToken.roles = userinfo ? [userinfo.roleId] : [];
         } else {
