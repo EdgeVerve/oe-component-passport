@@ -80,15 +80,27 @@ In above example, usernameField value would be set to value of environment (or c
 
 ### Finacle SSO JWT
 To use the application with finacle SSO JWT, check *"/test"* folder **provider.js** example for custom callback.
-To make Finacle SSO JWT to work wihtout login in to your application (JWT generated from Finacle SSO in another app) you need to enable and set following environment variables
+To make Finacle SSO JWT to work wihtout login in to your application (JWT generated from Finacle SSO in another app) you need to enable and set environment variables
+Finacle SSO's JWT is expected to be directly passed in "Authorization" header or "authorization" signed cookie for any API call - only to those which comes under ``` restApiRoot ``` path configured in config.js(or config.json or respective config file of each environment e.g. config.production.json).
 
 
-**SECRET_OR_KEY** or **PUBLIC_KEY** should be fininfra's public certificate as base64 string (should be properly formated and the public key certificate can be obtained from fininfra administrator)
+#### Environment variables
+
+**SECRET_OR_KEY** or **PUBLIC_KEY** should be fininfra's public key as base64 string (should be properly formated and the public key)
 **ENABLE_FINACLE_SSO_JWT** set to true
 
+#### How to get public key 
 
-This will enable middleware and other required function to be initialized
-Finacle SSO's JWT is expected to be directly passed in Authorization header for any API call - only to those which comes under ``` restApiRoot ``` path configured in config.js(or config.json).
+Get public key for jwt verify from cacerts and key.jks comes with fininfra (docker image)
+
+```
+keytool -importkeystore -srckeystore key.jks -destkeystore finaclesso.p12 -srcstoretype jks -deststoretype pkcs12
+
+keytool -exportcert -alias finacle -keystore key.jks | openssl x509 -inform DER >cert.pem
+```
+
+Please note, all values (URLs) in providers.js(json) for fininfra entries are case sensitive and should be all small. 
+Also, in provider.js(json) use same case which is used in Finacle SSO resource entry for Startup URL, Logout URL, client_id and client_secret.
 
 
 ### JWT_FOR_ACCESS_TOKEN
