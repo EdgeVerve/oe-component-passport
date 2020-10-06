@@ -17,16 +17,16 @@ var supertest = require('supertest');
 var api = defaults(supertest(app));
 var accessToken = '';
 
-describe(chalk.blue('model-validation PropertyLevel Validation test'), function () {
-  this.timeout(600000);
-  before('wait for boot', function (done) {
-    bootstrap.then(() => {
-      // debugger
-      // create user
-      done();
-    })
-      .catch(done);
-  });
+describe(chalk.blue('oe-component-passport: Local Authentication Tests'), function () {
+    this.timeout(600000);
+      before('wait for boot', function(done){
+          bootstrap.then(() => {
+          // debugger
+          //create user
+            done();
+          })
+          .catch(done)
+      });
 
   before('create user', function (done) {
     var userData = {
