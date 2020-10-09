@@ -9,14 +9,12 @@
 
 /**
  * Boot file to add injected accessToken roles to context principals
- * checks if ENABLE_FINACLE_SSO_JWT is true in environment variable
+ * checks if ENABLE_FIN_SSO_JWT is true in environment variable
  * this code executes when role is injected in middleware as part of JWT verification
- * e.g. finacleSSO JWT is passed as authorization header (by 3rd party external app) without logging in to this application
  */
 let logger = require('oe-logger')('inject-jwt-principals');
 module.exports = function fnInjectJwtPrincipals(app) {
-  if (process.env.ENABLE_FINACLE_SSO_JWT && (process.env.ENABLE_FINACLE_SSO_JWT === true || process.env.ENABLE_FINACLE_SSO_JWT === 'true')) {
-    logger.debug('FINACLE_SSO_JWT enabled');
+  if (process.env.ENABLE_FIN_SSO_JWT && (process.env.ENABLE_FIN_SSO_JWT === true || process.env.ENABLE_FIN_SSO_JWT === 'true')) {
     var ACL = app.models.ACL;
     var _checkAccessForContext = ACL.checkAccessForContext;
     var ctx = require('loopback/lib/access-context');

@@ -6,7 +6,7 @@
     },
     "session": {},
     "auth": {
-      "./middleware/fininfra-jwt-verify": {
+      "./middleware/jwt-verify": {
         "paths": [
           "${restApiRoot}"
         ]

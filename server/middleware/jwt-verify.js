@@ -8,12 +8,12 @@
 
 // Author : Dipayan
 
-let logger = require('oe-logger')('fininfra-jwt-verify');
+let logger = require('oe-logger')('jwt-verify');
 let jwt = require('jsonwebtoken');
-const verifyFinacleJWT = (process.env.ENABLE_FINACLE_SSO_JWT && (process.env.ENABLE_FINACLE_SSO_JWT === true || process.env.ENABLE_FINACLE_SSO_JWT === 'true')) ? true : false;
+const verifyFinJWT = (process.env.ENABLE_FIN_SSO_JWT && (process.env.ENABLE_FIN_SSO_JWT === true || process.env.ENABLE_FIN_SSO_JWT === 'true')) ? true : false;
 module.exports = function parseJwt() {
   return function (req, res, next) {
-    if (!verifyFinacleJWT) {
+    if (!verifyFinJWT) {
       return next();
     }
     var data;
@@ -44,7 +44,7 @@ module.exports = function parseJwt() {
           req.accessToken.roles = userinfo ? [userinfo.roleId] : [];
         }
       } catch (e) {
-        logger.debug('Finacle SSO JWT verify failed: ' + e.message);
+        logger.debug('SSO JWT verify failed: ' + e.message);
         next(e);
       }
     }
